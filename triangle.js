@@ -3,9 +3,9 @@ var Circle = lateration.Circle;
 var Vector = lateration.Vector;
 var laterate = lateration.laterate;
 
-var xa = 1, ya = -1;
-var xb = 2, yb = 1;
-var xc = -3, yc = 4;
+var xa = 5, ya = 0;
+var xb = -5, yb = 0;
+var xc = 0, yc = 7;
 
 
 function triangulate(r1, r2, r3) {
