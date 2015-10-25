@@ -1,6 +1,6 @@
 function Device(uuid) {
     this.uuid = uuid;
-    this.beaconSignalsHistory = [[-50,-60,-70]];
+    this.beaconSignalsHistory = [[null,null,null]];
 
     this.addBeaconSignal = function(beaconId, signalStrength) {
         log("New signalStrength from Beacon " + beaconId + " with strength " + signalStrength);
@@ -13,6 +13,10 @@ function Device(uuid) {
     this.y = null;
     this.updateCoordinates = function() {
         var beaconSignals = this.beaconSignalsHistory[this.beaconSignalsHistory.length - 1];
+        if(beaconSignals[0] == null || beaconSignals[1] == null || !beaconSignals[2] == null) {
+            log("Missing data from a beacon!");
+            return false;
+        }
         $.ajax({
             url: 'triangulate?r1='+beaconSignals[0]+'&r2='+beaconSignals[1]+'&r3='+beaconSignals[2],
             success: function(data) {
