@@ -7,7 +7,6 @@ io.emit('ready')
 io.on('signalstrength', function(data) {
 
     coordinateSystem.addSignalStrength(data.beaconId, data.uuid, data.signalStrength);
-    console.log(coordinateSystem.devices);
     //console.log(data);
     //alert(data);
 });

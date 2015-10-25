@@ -4,6 +4,7 @@ function Device(uuid) {
     this.positions = [];
 
     this.addBeaconSignal = function(beaconId, signalStrength) {
+        log("New signalStrength from Beacon " + beaconId + " with strength " + signalStrength);
         var beaconSignals = this.beaconSignalsHistory[this.beaconSignalsHistory.length - 1];
         beaconSignals[beaconId] = signalStrength;
 
@@ -14,7 +15,6 @@ function Device(uuid) {
 var coordinateSystem = {
 
     devices: [],
-    beacons: [],
 
     addDevice: function(uuid) {
         var device = new Device(uuid);
@@ -61,5 +61,5 @@ var coordinateSystem = {
 };
 
 function log(text) {
-    $('#log').append(text);
+    $('#log').append("<p>"+text+"</p>");
 }
