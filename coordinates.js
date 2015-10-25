@@ -23,7 +23,7 @@ function Device(uuid) {
             url: 'triangulate?r1='+beaconSignals[0]+'&r2='+beaconSignals[1]+'&r3='+beaconSignals[2],
             success: function(json) {
                 data = JSON.parse(json);
-                log("x: " + this.x + " y: " + this.y);
+                log("x: " + data.x + " y: " + data.y);
             }
         });
     }
