@@ -1,6 +1,6 @@
 function Device(uuid) {
     this.uuid = uuid;
-    this.beaconSignalsHistory = [[null,null,null]];
+    this.beaconSignalsHistory = [[-50,-60,-70]];
 
     this.addBeaconSignal = function(beaconId, signalStrength) {
         log("New signalStrength from Beacon " + beaconId + " with strength " + signalStrength);
@@ -13,10 +13,16 @@ function Device(uuid) {
     this.y = null;
     this.updateCoordinates = function() {
         var beaconSignals = this.beaconSignalsHistory[this.beaconSignalsHistory.length - 1];
-        var result = triangulate(beaconSignals[0], beaconSignals[1], beaconSignals[2]);
-        this.x = result[0];
-        this.y = result[1];
-        log("x: " + this.x + " y: " + this.y);
+        $.ajax({
+            url: 'triangulate?r1='+beaconSignals[0]+'&r2='+beaconSignals[1]+'&r3='+beaconSignals[2],
+            success: function(data) {
+                data = JSON.parse(data);
+                this.x = data.x;
+                this.y = data.y;
+                console.log(this.x);
+                log("x: " + this.x + " y: " + this.y);
+            }
+        });
     }
 }
 
