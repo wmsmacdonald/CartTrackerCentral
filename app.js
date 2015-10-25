@@ -19,7 +19,11 @@ app.get('/connection.js', function(req, res) {
 
 app.get('/coordinates.js', function(req, res) {
     res.sendfile(__dirname + '/coordinates.js')
-})
+});
+
+app.get('/triangle.js', function(req, res) {
+    res.sendfile(__dirname + '/triangle.js')
+});
 
 /*app.io.route('ready', function(socket_req) {
     socket_req.io.emit('talk', {

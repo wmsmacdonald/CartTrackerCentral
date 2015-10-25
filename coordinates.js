@@ -1,7 +1,6 @@
 function Device(uuid) {
     this.uuid = uuid;
     this.beaconSignalsHistory = [[null,null,null]];
-    this.positions = [];
 
     this.addBeaconSignal = function(beaconId, signalStrength) {
         log("New signalStrength from Beacon " + beaconId + " with strength " + signalStrength);
@@ -9,6 +8,15 @@ function Device(uuid) {
         beaconSignals[beaconId] = signalStrength;
 
         this.beaconSignalsHistory.push(beaconSignals);
+    },
+    this.x = null;
+    this.y = null;
+    this.updateCoordinates = function() {
+        var beaconSignals = this.beaconSignalsHistory[this.beaconSignalsHistory.length - 1];
+        var result = triangulate(beaconSignals[0], beaconSignals[1], beaconSignals[2]);
+        this.x = result[0];
+        this.y = result[1];
+        log("x: " + this.x + " y: " + this.y);
     }
 }
 
@@ -54,9 +62,9 @@ var coordinateSystem = {
 
         device.addBeaconSignal(beaconId, signalStrength);
 
-        //this.updateCoordinates(uuid);
+        device.updateCoordinates();
         //this.updateDeviceOnGraph(uuid);
-    }
+    },
 
 };
 
