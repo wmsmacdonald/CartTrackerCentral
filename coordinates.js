@@ -1,5 +1,15 @@
 var coords = [];
 
+// Get the page bounds
+var pageWidth = window.innerWidth;
+var pageHeight = window.innerHeight;
+
+var canvas = document.getElementById("canvas");
+var ctx = canvas.getContext("2d");
+canvas.width = pageWidth;
+canvas.height = pageHeight;
+
+
 function Device(uuid) {
     this.uuid = uuid;
     this.beaconSignalsHistory = [[-50,-60,-70]];
@@ -15,7 +25,7 @@ function Device(uuid) {
     this.y = null;
     this.updateCoordinates = function() {
         var beaconSignals = this.beaconSignalsHistory[this.beaconSignalsHistory.length - 1];
-        if(beaconSignals[0] == null || beaconSignals[1] == null || !beaconSignals[2] == null) {
+        if(beaconSignals[0] == null || beaconSignals[1] == null || beaconSignals[2] == null) {
             log("Missing data from a beacon!");
             return false;
         }
@@ -23,7 +33,10 @@ function Device(uuid) {
             url: 'triangulate?r1='+beaconSignals[0]+'&r2='+beaconSignals[1]+'&r3='+beaconSignals[2],
             success: function(json) {
                 data = JSON.parse(json);
-                log("x: " + data.x + " y: " + data.y);
+                console.log(data);
+                //log("x: " + data.x + " y: " + data.y);
+                ctx.fillStyle = "red";
+                ctx.fillRect(pageWidth / 2 + 100 * data.x, pageHeight / 2 + 100 * data.y, 2, 2);
             }
         });
     }
@@ -78,5 +91,6 @@ var coordinateSystem = {
 };
 
 function log(text) {
-    $('#log').append("<p>"+text+"</p>");
+    //$('#log').append("<p>"+text+"</p>");
+    console.log(text);
 }

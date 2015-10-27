@@ -2,7 +2,7 @@ var lateration = require("lateration");
 var Circle = lateration.Circle;
 var Vector = lateration.Vector;
 var laterate = lateration.laterate;
-
+// adding a comment here
 var xa = 5, ya = 0;
 var xb = -5, yb = 0;
 var xc = 0, yc = 7;
